@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediQuiz - Plateforme d'apprentissage médical</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>MediQuiz</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#" onclick="showHome()">Accueil</a>
+                    <a href="#" onclick="startQuiz()">Quiz</a>
+                    <a href="#" onclick="showProgress()">Progrès</a>
+                    <button onclick="toggleTheme()">🌙/☀️</button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Maîtrisez vos <span class="gradient-text">connaissances médicales</span>
+                    </h1>
+                    <p class="hero-description">
+                        Plateforme interactive de quiz pour étudiants en médecine. 
+                        Choisissez votre spécialité et testez vos connaissances.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Sélection des thèmes -->
+            <div class="themes-grid">
+                <div class="theme-card" onclick="startQuiz('cardiologie')">
+                    <div class="theme-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3>Cardiologie</h3>
+                    <p>Cœur, circulation, pathologies cardiovasculaires</p>
+                    <span class="question-count">8 questions</span>
+                </div>
+                
+                <div class="theme-card" onclick="startQuiz('neurologie')">
+                    <div class="theme-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Neurologie</h3>
+                    <p>Système nerveux, cerveau, pathologies neurologiques</p>
+                    <span class="question-count">8 questions</span>
+                </div>
+                
+                <div class="theme-card" onclick="startQuiz('anatomie')">
+                    <div class="theme-icon">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                    <h3>Anatomie</h3>
+                    <p>Structure du corps humain, organes, systèmes</p>
+                    <span class="question-count">10 questions</span>
+                </div>
+                
+                <div class="theme-card" onclick="startQuiz('pharmacologie')">
+                    <div class="theme-icon">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <h3>Pharmacologie</h3>
+                    <p>Médicaments, posologie, interactions</p>
+                    <span class="question-count">8 questions</span>
+                </div>
+                
+                <div class="theme-card" onclick="startQuiz('pediatrie')">
+                    <div class="theme-icon">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <h3>Pédiatrie</h3>
+                    <p>Médecine de l'enfant, développement, pathologies</p>
+                    <span class="question-count">8 questions</span>
+                </div>
+                
+                <div class="theme-card" onclick="startQuiz('general')">
+                    <div class="theme-icon">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h3>Médecine Générale</h3>
+                    <p>Connaissances générales, diagnostic, prévention</p>
+                    <span class="question-count">10 questions</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="quiz-section" style="display: none;">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h2>Quiz Médical</h2>
+                    <div class="quiz-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <span class="progress-text" id="progressText">Question 1 sur 5</span>
+                    </div>
+                </div>
+                
+                <div class="quiz-content">
+                    <div class="question-card">
+                        <h3 class="question-title" id="questionTitle">Chargement...</h3>
+                        <div class="answers-grid" id="answersGrid">
+                            <!-- Les réponses seront générées dynamiquement -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-controls">
+                    <button class="btn btn-outline" id="prevBtn" onclick="previousQuestion()" disabled>
+                        Précédent
+                    </button>
+                    <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>
+                        Suivant
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="results-section" style="display: none;">
+            <div class="results-container">
+                <div class="results-card">
+                    <h2>Quiz Terminé!</h2>
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span class="score-number" id="finalScore">0</span>
+                            <span class="score-total">/ 5</span>
+                        </div>
+                    </div>
+                    <p class="score-message" id="scoreMessage"></p>
+                    <div class="results-actions">
+                        <button class="btn btn-primary" onclick="startQuiz()">
+                            Recommencer
+                        </button>
+                        <button class="btn btn-secondary" onclick="showHome()">
+                            Accueil
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section id="progress" class="progress-section" style="display: none;">
+            <div class="progress-container">
+                <h2>Mes Progrès</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3 id="totalQuizzes">0</h3>
+                        <p>Quiz Complétés</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3 id="averageScore">0%</h3>
+                        <p>Score Moyen</p>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="startQuiz()">Nouveau Quiz</button>
+                <button class="btn btn-secondary" onclick="showHome()">Accueil</button>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Base de données des quiz par thème
+        const quizData = {
+            cardiologie: {
+                title: "Quiz Cardiologie",
+                questions: [
+                    {
+                        question: "Quelle est la fréquence cardiaque normale au repos pour un adulte ?",
+                        answers: ["40-60 bpm", "60-100 bpm", "100-120 bpm", "120-140 bpm"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quelle valve sépare l'oreillette gauche du ventricule gauche ?",
+                        answers: ["Valve tricuspide", "Valve mitrale", "Valve aortique", "Valve pulmonaire"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quel est le principal facteur de risque de l'infarctus du myocarde ?",
+                        answers: ["L'âge", "L'athérosclérose", "Le stress", "L'obésité"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quelle artère irrigue le muscle cardiaque ?",
+                        answers: ["Artère carotide", "Artère coronaire", "Artère fémorale", "Artère rénale"],
+                        correct: 1
+                    },
+                    {
+                        question: "Que signifie ECG ?",
+                        answers: ["Électrocardiogramme", "Échocardiographie", "Électroencéphalogramme", "Échographie cardiaque"],
+                        correct: 0
+                    },
+                    {
+                        question: "Quelle est la pression artérielle normale ?",
+                        answers: ["90/60 mmHg", "120/80 mmHg", "140/90 mmHg", "160/100 mmHg"],
+                        correct: 1
+                    },
+                    {
+                        question: "Combien de chambres possède le cœur humain ?",
+                        answers: ["2", "3", "4", "5"],
+                        correct: 2
+                    },
+                    {
+                        question: "Quel médicament est couramment utilisé pour traiter l'hypertension ?",
+                        answers: ["Aspirine", "Inhibiteur de l'ECA", "Paracétamol", "Antibiotique"],
+                        correct: 1
+                    }
+                ]
+            },
+            neurologie: {
+                title: "Quiz Neurologie",
+                questions: [
+                    {
+                        question: "Combien de paires de nerfs crâniens existe-t-il ?",
+                        answers: ["10", "12", "14", "16"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quelle partie du cerveau contrôle l'équilibre ?",
+                        answers: ["Cervelet", "Cortex", "Thalamus", "Hypothalamus"],
+                        correct: 0
+                    },
+                    {
+                        question: "Qu'est-ce que la maladie d'Alzheimer affecte principalement ?",
+                        answers: ["La mémoire", "La vision", "L'audition", "Le goût"],
+                        correct: 0
+                    },
+                    {
+                        question: "Quel neurotransmetteur est déficient dans la maladie de Parkinson ?",
+                        answers: ["Sérotonine", "Dopamine", "Acétylcholine", "GABA"],
+                        correct: 1
+                    },
+                    {
+                        question: "Que signifie AVC ?",
+                        answers: ["Accident Vasculaire Cérébral", "Artère Vertébrale Comprimée", "Anévrisme Vasculaire Crânien", "Artériosclérose Vasculaire Chronique"],
+                        correct: 0
+                    },
+                    {
+                        question: "Quelle est la fonction principale du liquide céphalo-rachidien ?",
+                        answers: ["Nutrition", "Protection", "Circulation", "Toutes les réponses"],
+                        correct: 3
+                    },
+                    {
+                        question: "Où se trouve le centre de la parole (aire de Broca) ?",
+                        answers: ["Lobe frontal gauche", "Lobe pariétal", "Lobe temporal", "Lobe occipital"],
+                        correct: 0
+                    },
+                    {
+                        question: "Quel examen permet de visualiser l'activité électrique du cerveau ?",
+                        answers: ["IRM", "Scanner", "EEG", "Échographie"],
+                        correct: 2
+                    }
+                ]
+            },
+            anatomie: {
+                title: "Quiz Anatomie",
+                questions: [
+                    {
+                        question: "Quel est le plus grand organe du corps humain ?",
+                        answers: ["Foie", "Poumons", "Peau", "Cerveau"],
+                        correct: 2
+                    },
+                    {
+                        question: "Combien d'os compte le squelette humain adulte ?",
+                        answers: ["206", "208", "210", "212"],
+                        correct: 0
+                    },
+                    {
+                        question: "Quel muscle est le plus puissant du corps ?",
+                        answers: ["Biceps", "Quadriceps", "Masséter", "Grand fessier"],
+                        correct: 2
+                    },
+                    {
+                        question: "Où se trouvent les cordes vocales ?",
+                        answers: ["Pharynx", "Larynx", "Trachée", "Œsophage"],
+                        correct: 1
+                    },
+                    {
+                        question: "Combien de vertèbres compte la colonne vertébrale ?",
+                        answers: ["31", "33", "35", "37"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quel organe produit la bile ?",
+                        answers: ["Pancréas", "Rate", "Foie", "Vésicule biliaire"],
+                        correct: 2
+                    },
+                    {
+                        question: "Combien de côtes possède l'être humain ?",
+                        answers: ["22", "24", "26", "28"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quelle est la plus petite unité fonctionnelle du rein ?",
+                        answers: ["Glomérule", "Néphron", "Tubule", "Calice"],
+                        correct: 1
+                    },
+                    {
+                        question: "Dans quel organe se trouve l'iris ?",
+                        answers: ["Oreille", "Nez", "Œil", "Bouche"],
+                        correct: 2
+                    },
+                    {
+                        question: "Quel est l'os le plus long du corps humain ?",
+                        answers: ["Tibia", "Humérus", "Fémur", "Radius"],
+                        correct: 2
+                    }
+                ]
+            },
+            pharmacologie: {
+                title: "Quiz Pharmacologie",
+                questions: [
+                    {
+                        question: "Quel médicament est un anticoagulant ?",
+                        answers: ["Aspirine", "Warfarine", "Paracétamol", "Ibuprofène"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quelle voie d'administration est la plus rapide ?",
+                        answers: ["Orale", "Intraveineuse", "Intramusculaire", "Sous-cutanée"],
+                        correct: 1
+                    },
+                    {
+                        question: "Qu'est-ce qu'un effet secondaire ?",
+                        answers: ["Effet thérapeutique", "Effet indésirable", "Effet placebo", "Effet synergique"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quel organe métabolise principalement les médicaments ?",
+                        answers: ["Rein", "Foie", "Poumon", "Cœur"],
+                        correct: 1
+                    },
+                    {
+                        question: "Que signifie DCI ?",
+                        answers: ["Dose Clinique Initiale", "Dénomination Commune Internationale", "Durée de Conservation Indiquée", "Diagnostic Clinique Initial"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quel antibiotique est contre-indiqué chez la femme enceinte ?",
+                        answers: ["Amoxicilline", "Tétracycline", "Pénicilline", "Érythromycine"],
+                        correct: 1
+                    },
+                    {
+                        question: "Qu'est-ce que la biodisponibilité ?",
+                        answers: ["Toxicité du médicament", "Fraction active absorbée", "Durée d'action", "Voie d'élimination"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quel médicament traite spécifiquement la douleur ?",
+                        answers: ["Antalgique", "Antibiotique", "Antifongique", "Antiviral"],
+                        correct: 0
+                    }
+                ]
+            },
+            pediatrie: {
+                title: "Quiz Pédiatrie",
+                questions: [
+                    {
+                        question: "À quel âge un enfant commence-t-il généralement à marcher ?",
+                        answers: ["8-10 mois", "10-12 mois", "12-15 mois", "15-18 mois"],
+                        correct: 2
+                    },
+                    {
+                        question: "Quel vaccin est administré à la naissance ?",
+                        answers: ["ROR", "DTC", "BCG", "Polio"],
+                        correct: 2
+                    },
+                    {
+                        question: "Quelle est la température normale chez un nourrisson ?",
+                        answers: ["36-37°C", "37-38°C", "38-39°C", "35-36°C"],
+                        correct: 0
+                    },
+                    {
+                        question: "À quel âge ferme la fontanelle antérieure ?",
+                        answers: ["6 mois", "12 mois", "18 mois", "24 mois"],
+                        correct: 2
+                    },
+                    {
+                        question: "Quelle maladie infantile provoque des taches de Koplik ?",
+                        answers: ["Varicelle", "Rougeole", "Rubéole", "Scarlatine"],
+                        correct: 1
+                    },
+                    {
+                        question: "Jusqu'à quel âge l'allaitement maternel exclusif est-il recommandé ?",
+                        answers: ["3 mois", "4 mois", "6 mois", "8 mois"],
+                        correct: 2
+                    },
+                    {
+                        question: "Quel réflexe disparaît vers 3-4 mois ?",
+                        answers: ["Réflexe de Moro", "Réflexe de succion", "Réflexe de marche", "Réflexe de préhension"],
+                        correct: 0
+                    },
+                    {
+                        question: "Quelle est la principale cause de mortalité infantile ?",
+                        answers: ["Infections", "Malformations", "Prématurité", "Accidents"],
+                        correct: 2
+                    }
+                ]
+            },
+            general: {
+                title: "Quiz Médecine Générale",
+                questions: [
+                    {
+                        question: "Quel organe produit l'insuline ?",
+                        answers: ["Foie", "Rein", "Pancréas", "Rate"],
+                        correct: 2
+                    },
+                    {
+                        question: "Quelle vitamine est synthétisée par la peau ?",
+                        answers: ["Vitamine A", "Vitamine C", "Vitamine D", "Vitamine K"],
+                        correct: 2
+                    },
+                    {
+                        question: "Quel est le taux normal de glycémie à jeun ?",
+                        answers: ["0.7-1.1 g/L", "1.2-1.5 g/L", "1.6-2.0 g/L", "2.1-2.5 g/L"],
+                        correct: 0
+                    },
+                    {
+                        question: "Combien de temps dure une grossesse normale ?",
+                        answers: ["36 semaines", "38 semaines", "40 semaines", "42 semaines"],
+                        correct: 2
+                    },
+                    {
+                        question: "Quel examen permet de dépister le cancer du col de l'utérus ?",
+                        answers: ["Mammographie", "Frottis cervical", "Échographie", "IRM"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quelle maladie est causée par un déficit en vitamine C ?",
+                        answers: ["Scorbut", "Rachitisme", "Béribéri", "Pellagre"],
+                        correct: 0
+                    },
+                    {
+                        question: "Quel est l'agent pathogène de la tuberculose ?",
+                        answers: ["Virus", "Bactérie", "Champignon", "Parasite"],
+                        correct: 1
+                    },
+                    {
+                        question: "Quelle est la durée de vie moyenne d'un globule rouge ?",
+                        answers: ["30 jours", "60 jours", "90 jours", "120 jours"],
+                        correct: 3
+                    },
+                    {
+                        question: "Quel organe filtre le sang ?",
+                        answers: ["Foie", "Rein", "Rate", "Poumon"],
+                        correct: 1
+                    },
+                    {
+                        question: "Combien de groupes sanguins principaux existe-t-il dans le système ABO ?",
+                        answers: ["2", "3", "4", "5"],
+                        correct: 2
+                    }
+                ]
+            }
+        };
+
+        // Variables
+        let currentQuestion = 0;
+        let selectedAnswers = [];
+        let score = 0;
+        let currentQuiz = null;
+        let currentTheme = '';
+
+        // Fonctions principales
+        function showHome() {
+            document.getElementById('home').style.display = 'block';
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('progress').style.display = 'none';
+        }
+
+        function showProgress() {
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('progress').style.display = 'block';
+            updateProgress();
+        }
+
+        function startQuiz(theme = 'general') {
+            currentTheme = theme;
+            currentQuiz = quizData[theme];
+            currentQuestion = 0;
+            selectedAnswers = [];
+            score = 0;
+            
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('quiz').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('progress').style.display = 'none';
+            
+            // Mettre à jour le titre du quiz
+            document.querySelector('#quiz h2').textContent = currentQuiz.title;
+            
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            const q = currentQuiz.questions[currentQuestion];
+            document.getElementById('questionTitle').textContent = q.question;
+            
+            const progress = ((currentQuestion + 1) / currentQuiz.questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} sur ${currentQuiz.questions.length}`;
+            
+            const grid = document.getElementById('answersGrid');
+            grid.innerHTML = '';
+            
+            q.answers.forEach((answer, index) => {
+                const div = document.createElement('div');
+                div.className = 'answer-option';
+                div.textContent = answer;
+                div.onclick = () => selectAnswer(index);
+                
+                // Restaurer la sélection si elle existe
+                if (selectedAnswers[currentQuestion] === index) {
+                    div.classList.add('selected');
+                }
+                
+                grid.appendChild(div);
+            });
+            
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = selectedAnswers[currentQuestion] === undefined;
+        }
+
+        function selectAnswer(index) {
+            selectedAnswers[currentQuestion] = index;
+            
+            const options = document.querySelectorAll('.answer-option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[index].classList.add('selected');
+            
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < currentQuiz.questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+            }
+        }
+
+        function finishQuiz() {
+            score = 0;
+            selectedAnswers.forEach((answer, index) => {
+                if (answer === currentQuiz.questions[index].correct) {
+                    score++;
+                }
+            });
+            
+            document.getElementById('quiz').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('finalScore').textContent = score;
+            
+            const total = currentQuiz.questions.length;
+            const percentage = (score / total) * 100;
+            
+            let message = '';
+            if (percentage >= 80) message = `Excellent ! Vous maîtrisez la ${currentTheme} !`;
+            else if (percentage >= 60) message = `Bien joué ! Continuez vos efforts en ${currentTheme}.`;
+            else message = `Il faut réviser la ${currentTheme}. Ne vous découragez pas !`;
+            
+            document.getElementById('scoreMessage').textContent = message;
+            document.querySelector('#results .score-total').textContent = `/ ${total}`;
+            
+            saveScore();
+        }
+
+        function saveScore() {
+            let scores = JSON.parse(localStorage.getItem('scores') || '[]');
+            scores.push({
+                theme: currentTheme,
+                score: score,
+                total: currentQuiz.questions.length,
+                date: new Date().toLocaleDateString()
+            });
+            localStorage.setItem('scores', JSON.stringify(scores));
+        }
+
+        function updateProgress() {
+            let scores = JSON.parse(localStorage.getItem('scores') || '[]');
+            document.getElementById('totalQuizzes').textContent = scores.length;
+            
+            if (scores.length > 0) {
+                const totalPoints = scores.reduce((sum, s) => sum + s.score, 0);
+                const totalPossible = scores.reduce((sum, s) => sum + s.total, 0);
+                const avg = (totalPoints / totalPossible) * 100;
+                document.getElementById('averageScore').textContent = Math.round(avg) + '%';
+            }
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.hasAttribute('data-theme')) {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        }
+    </script>
+</body>
+</html>
