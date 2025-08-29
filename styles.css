@@ -208,7 +208,11 @@ body::before {
   position: fixed;
   top: 0;
   width: 100%;
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.95) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.95) 0%,
+    rgba(51, 65, 85, 0.95) 100%
+  );
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(0, 245, 255, 0.3);
   z-index: 1000;
@@ -341,7 +345,11 @@ body::before {
 
 .nav-link:hover {
   color: #ffffff;
-  background: linear-gradient(135deg, rgba(0, 245, 255, 0.2) 0%, rgba(157, 78, 221, 0.2) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 245, 255, 0.2) 0%,
+    rgba(157, 78, 221, 0.2) 100%
+  );
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 245, 255, 0.4);
   border-color: rgba(0, 245, 255, 0.5);
@@ -375,7 +383,11 @@ body::before {
 /* Menu hamburger pour mobile */
 .mobile-menu-btn {
   display: none;
-  background: linear-gradient(135deg, rgba(0, 245, 255, 0.1) 0%, rgba(157, 78, 221, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 245, 255, 0.1) 0%,
+    rgba(157, 78, 221, 0.1) 100%
+  );
   border: 1px solid rgba(0, 245, 255, 0.3);
   color: rgba(255, 255, 255, 0.9);
   font-size: 1.5rem;
@@ -387,7 +399,11 @@ body::before {
 }
 
 .mobile-menu-btn:hover {
-  background: linear-gradient(135deg, rgba(0, 245, 255, 0.2) 0%, rgba(157, 78, 221, 0.2) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 245, 255, 0.2) 0%,
+    rgba(157, 78, 221, 0.2) 100%
+  );
   color: #ffffff;
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 245, 255, 0.3);
@@ -404,7 +420,11 @@ body::before {
     top: 100%;
     left: 1rem;
     right: 1rem;
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.98) 0%, rgba(51, 65, 85, 0.98) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(30, 41, 59, 0.98) 0%,
+      rgba(51, 65, 85, 0.98) 100%
+    );
     backdrop-filter: blur(20px);
     border: 1px solid rgba(0, 245, 255, 0.2);
     border-radius: 16px;
@@ -435,7 +455,11 @@ body::before {
     width: 100%;
     text-align: center;
     padding: 1rem 1.5rem;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.05) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     margin: 0;
@@ -444,7 +468,11 @@ body::before {
   }
 
   .nav-link:hover {
-    background: linear-gradient(135deg, rgba(0, 245, 255, 0.15) 0%, rgba(157, 78, 221, 0.15) 100%);
+    background: linear-gradient(
+      135deg,
+      rgba(0, 245, 255, 0.15) 0%,
+      rgba(157, 78, 221, 0.15) 100%
+    );
     border-color: rgba(0, 245, 255, 0.4);
     color: #ffffff;
     transform: translateY(-1px);
@@ -1817,7 +1845,11 @@ Section Progrès */
 
 /* Styles pour thème clair */
 [data-theme="light"] .header {
-  background: linear-gradient(135deg, rgba(248, 250, 252, 0.95) 0%, rgba(241, 245, 249, 0.95) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(248, 250, 252, 0.95) 0%,
+    rgba(241, 245, 249, 0.95) 100%
+  );
   border-bottom: 1px solid rgba(0, 102, 255, 0.3);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
@@ -1834,7 +1866,11 @@ Section Progrès */
 
 [data-theme="light"] .nav-link:hover {
   color: #ffffff;
-  background: linear-gradient(135deg, rgba(0, 102, 255, 0.9) 0%, rgba(139, 92, 246, 0.9) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 102, 255, 0.9) 0%,
+    rgba(139, 92, 246, 0.9) 100%
+  );
   box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3);
   border-color: rgba(0, 102, 255, 0.5);
 }
@@ -1846,31 +1882,51 @@ Section Progrès */
 }
 
 [data-theme="light"] .mobile-menu-btn {
-  background: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 102, 255, 0.1) 0%,
+    rgba(139, 92, 246, 0.1) 100%
+  );
   border-color: rgba(0, 102, 255, 0.3);
   color: rgba(30, 41, 59, 0.9);
 }
 
 [data-theme="light"] .mobile-menu-btn:hover {
-  background: linear-gradient(135deg, rgba(0, 102, 255, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 102, 255, 0.2) 0%,
+    rgba(139, 92, 246, 0.2) 100%
+  );
   color: #ffffff;
   box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3);
 }
 
 [data-theme="light"] .nav-links {
-  background: linear-gradient(135deg, rgba(248, 250, 252, 0.98) 0%, rgba(241, 245, 249, 0.98) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(248, 250, 252, 0.98) 0%,
+    rgba(241, 245, 249, 0.98) 100%
+  );
   border-color: rgba(0, 102, 255, 0.2);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="light"] .nav-links .nav-link {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.05) 0%, rgba(30, 41, 59, 0.03) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(30, 41, 59, 0.05) 0%,
+    rgba(30, 41, 59, 0.03) 100%
+  );
   border-color: rgba(30, 41, 59, 0.1);
   color: rgba(30, 41, 59, 0.9);
 }
 
 [data-theme="light"] .nav-links .nav-link:hover {
-  background: linear-gradient(135deg, rgba(0, 102, 255, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 102, 255, 0.15) 0%,
+    rgba(139, 92, 246, 0.15) 100%
+  );
   border-color: rgba(0, 102, 255, 0.4);
   color: var(--primary-color);
 }
