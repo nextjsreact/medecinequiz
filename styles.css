@@ -389,7 +389,7 @@ body::before {
   .mobile-menu-btn {
     display: block;
   }
-  
+
   .nav-links {
     display: none;
     position: absolute;
@@ -404,11 +404,11 @@ body::before {
     gap: 0.5rem;
     z-index: 1000;
   }
-  
+
   .nav-links.mobile-open {
     display: flex;
   }
-  
+
   .nav-link {
     width: 100%;
     text-align: center;
@@ -417,7 +417,7 @@ body::before {
     border-radius: 8px;
     margin: 0;
   }
-  
+
   .nav-link::after {
     display: none;
   }
@@ -1181,7 +1181,7 @@ body::before {
   .theme-card:hover {
     transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
   }
-  
+
   .btn-primary:hover {
     transform: translateY(-3px) scale(1.05);
   }
